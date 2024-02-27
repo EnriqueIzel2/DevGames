@@ -2,6 +2,7 @@
     <string name="app_name">DevGames</string>
     <string name="menu_ic_favorites">Favorites</string>
     <string name="home_editText_hint">Looking for a game?</string>
+    <string name="home_recyclerView_title">Trending Games</string>
 
 
 </resources>
