@@ -3,4 +3,6 @@
     <string name="menu_ic_favorites">Favorites</string>
     <string name="home_editText_hint">Looking for a game?</string>
     <string name="home_recyclerView_title">Trending Games</string>
+    <string name="game_banner">Game Banner</string>
+    <string name="star_icon">Star Icon</string>
 </resources>
