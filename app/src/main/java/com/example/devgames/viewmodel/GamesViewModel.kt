@@ -1,4 +1,4 @@
-package com.example.devgames.data.viewmodel
+package com.example.devgames.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
