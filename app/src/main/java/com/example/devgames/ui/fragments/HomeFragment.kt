@@ -22,8 +22,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.devgames.R
 import com.example.devgames.data.repository.GameRepository
-import com.example.devgames.data.viewmodel.GamesViewModel
-import com.example.devgames.data.viewmodel.GamesViewModelFactory
+import com.example.devgames.viewmodel.GamesViewModel
+import com.example.devgames.viewmodel.GamesViewModelFactory
 import com.example.devgames.databinding.FragmentHomeBinding
 import com.example.devgames.service.RetrofitInitializer
 import com.example.devgames.ui.fragments.adapter.GamesAdapter
