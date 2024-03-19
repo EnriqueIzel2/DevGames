@@ -6,21 +6,26 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.devgames.R
-import com.example.devgames.data.MockData
+import com.example.devgames.data.repository.GameRepository
+import com.example.devgames.data.viewmodel.GamesViewModel
+import com.example.devgames.data.viewmodel.GamesViewModelFactory
 import com.example.devgames.databinding.FragmentHomeBinding
-import com.example.devgames.ui.fragments.adapter.CategoriesAdapter
+import com.example.devgames.service.RetrofitInitializer
 import com.example.devgames.ui.fragments.adapter.GamesAdapter
 
 class HomeFragment : Fragment() {
@@ -30,6 +35,10 @@ class HomeFragment : Fragment() {
   private val buttonSearchGame by lazy { binding.buttonSearchGame }
   private val recyclerViewGames by lazy { binding.homeRecyclerViewGames }
   private val recyclerViewCategories by lazy { binding.homeRecyclerViewCategories }
+  private val mGamesAdapter by lazy { GamesAdapter(requireContext()) }
+
+  private lateinit var gamesViewModel: GamesViewModel
+  private val apiInitializer = RetrofitInitializer().createApiService()
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -44,14 +53,34 @@ class HomeFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     setupToolbar()
+    setupViewModel()
 
-    val mockCategories = MockData.generateMockCategoriesList()
-    val mCategoriesAdapter = CategoriesAdapter(requireContext(), mockCategories)
-    val mockGames = MockData.generateMockGamesList()
-    val mGamesAdapter = GamesAdapter(requireContext(), mockGames)
-
-    recyclerViewCategories.adapter = mCategoriesAdapter
     recyclerViewGames.adapter = mGamesAdapter
+  }
+
+  override fun onStart() {
+    super.onStart()
+
+    gamesViewModel.gamesList.observe(requireActivity(), Observer {
+      mGamesAdapter.setGamesList(it)
+    })
+
+    gamesViewModel.errorMessage.observe(this, Observer {
+      Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+    })
+  }
+
+  override fun onResume() {
+    super.onResume()
+
+    gamesViewModel.getGames()
+  }
+
+  private fun setupViewModel() {
+    gamesViewModel =
+      ViewModelProvider(requireActivity(), GamesViewModelFactory(GameRepository(apiInitializer))).get(
+        GamesViewModel::class.java
+      )
   }
 
   private fun setupToolbar() {
