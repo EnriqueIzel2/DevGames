@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInitializer {
   companion object {
-    const val base_url = "https://api.rawg.io/api/"
+    private const val base_url = "https://api.rawg.io/api/"
   }
 
   private fun getRetrofitClient(): Retrofit {
