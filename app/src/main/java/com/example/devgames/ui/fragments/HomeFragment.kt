@@ -20,13 +20,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.devgames.R
+import com.example.devgames.data.model.Game
 import com.example.devgames.data.repository.GameRepository
-import com.example.devgames.viewmodel.GamesViewModel
-import com.example.devgames.viewmodel.GamesViewModelFactory
 import com.example.devgames.databinding.FragmentHomeBinding
 import com.example.devgames.service.RetrofitInitializer
 import com.example.devgames.ui.fragments.adapter.GamesAdapter
+import com.example.devgames.viewmodel.GamesViewModel
+import com.example.devgames.viewmodel.GamesViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -35,7 +37,7 @@ class HomeFragment : Fragment() {
   private val buttonSearchGame by lazy { binding.buttonSearchGame }
   private val recyclerViewGames by lazy { binding.homeRecyclerViewGames }
   private val recyclerViewCategories by lazy { binding.homeRecyclerViewCategories }
-  private val mGamesAdapter by lazy { GamesAdapter(requireContext()) }
+  private lateinit var mGamesAdapter: GamesAdapter
 
   private lateinit var gamesViewModel: GamesViewModel
   private val apiInitializer = RetrofitInitializer().createApiService()
@@ -44,7 +46,9 @@ class HomeFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    binding = FragmentHomeBinding.inflate(inflater, container, false)
+    if (!::binding.isInitialized) {
+      binding = FragmentHomeBinding.inflate(inflater, container, false)
+    }
 
     return binding.root
   }
@@ -54,15 +58,14 @@ class HomeFragment : Fragment() {
 
     setupToolbar()
     setupViewModel()
-
-    recyclerViewGames.adapter = mGamesAdapter
   }
 
   override fun onStart() {
     super.onStart()
 
-    gamesViewModel.gamesList.observe(requireActivity(), Observer {
-      mGamesAdapter.setGamesList(it)
+    gamesViewModel.gamesList.observe(requireActivity(), Observer { gameList ->
+      mGamesAdapter = GamesAdapter(gameList) { navToDetailsFragment(it) }
+      recyclerViewGames.adapter = mGamesAdapter
     })
 
     gamesViewModel.errorMessage.observe(this, Observer {
@@ -76,9 +79,16 @@ class HomeFragment : Fragment() {
     gamesViewModel.getGames()
   }
 
+  private fun navToDetailsFragment(game: Game) {
+    findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
+  }
+
   private fun setupViewModel() {
     gamesViewModel =
-      ViewModelProvider(requireActivity(), GamesViewModelFactory(GameRepository(apiInitializer))).get(
+      ViewModelProvider(
+        requireActivity(),
+        GamesViewModelFactory(GameRepository(apiInitializer))
+      ).get(
         GamesViewModel::class.java
       )
   }
