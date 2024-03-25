@@ -18,5 +18,10 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.devgames.ui.fragments.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+
+        <argument
+            android:name="gameID"
+            app:argType="integer" />
+    </fragment>
 </navigation>
