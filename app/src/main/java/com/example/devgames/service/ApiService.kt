@@ -1,9 +1,11 @@
 package com.example.devgames.service
 
 import com.example.devgames.API_KEY
+import com.example.devgames.data.model.GameDetails
 import com.example.devgames.data.model.GameResult
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -13,4 +15,7 @@ interface ApiService {
 
   @GET("games")
   fun getGames(@Query("key") api: String = api_key) : Call<GameResult>
+
+  @GET("games/{id}")
+  fun getGame(@Path("id") id: Int, @Query("key") api: String = api_key) : Call<GameDetails>
 }
