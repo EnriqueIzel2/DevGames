@@ -3,6 +3,7 @@ package com.example.devgames.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.devgames.data.model.Game
+import com.example.devgames.data.model.GameDetails
 import com.example.devgames.data.model.GameResult
 import com.example.devgames.data.repository.GameRepository
 import retrofit2.Call
@@ -22,6 +23,20 @@ class GamesViewModel(private val repository: GameRepository) : ViewModel() {
       }
 
       override fun onFailure(call: Call<GameResult>, t: Throwable) {
+        errorMessage.postValue(t.message)
+      }
+    })
+  }
+
+  val gameDetails = MutableLiveData<GameDetails>()
+  fun getGame(id: Int) {
+    val request = repository.getGame(id)
+    request.enqueue(object : Callback<GameDetails> {
+      override fun onResponse(call: Call<GameDetails>, response: Response<GameDetails>) {
+        gameDetails.postValue(response.body())
+      }
+
+      override fun onFailure(call: Call<GameDetails>, t: Throwable) {
         errorMessage.postValue(t.message)
       }
     })
