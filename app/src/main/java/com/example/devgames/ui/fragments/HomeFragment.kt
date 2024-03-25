@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
     super.onStart()
 
     gamesViewModel.gamesList.observe(requireActivity(), Observer { gameList ->
-      mGamesAdapter = GamesAdapter(gameList) { navToDetailsFragment(it) }
+      mGamesAdapter = GamesAdapter(gameList) { navToDetailsFragment(it.id) }
       recyclerViewGames.adapter = mGamesAdapter
     })
 
@@ -79,8 +79,9 @@ class HomeFragment : Fragment() {
     gamesViewModel.getGames()
   }
 
-  private fun navToDetailsFragment(game: Game) {
-    findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
+  private fun navToDetailsFragment(id: Int) {
+    val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id)
+    findNavController().navigate(action)
   }
 
   private fun setupViewModel() {
