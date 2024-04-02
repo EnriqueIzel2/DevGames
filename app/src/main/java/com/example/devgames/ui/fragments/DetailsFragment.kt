@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.devgames.data.repository.GameRepository
 import com.example.devgames.databinding.FragmentDetailsBinding
 import com.example.devgames.service.RetrofitInitializer
@@ -42,11 +45,14 @@ class DetailsFragment : Fragment() {
   override fun onStart() {
     super.onStart()
 
-    gameTitle.text = gamesViewModel.gameDetails.value?.name
+    gamesViewModel.gameDetails.observe(requireActivity(), Observer { gameDetail ->
+      gameTitle.text = gameDetail.name
+      Glide.with(binding.root.context).load(gameDetail.backgroundImageAdditional).into(gameMainBanner)
+    })
 
-    //    Glide.with(binding.root.context).load(game.backgroundImage).into(gameMainBanner)
-//    gameTitle.text = game.name
-//    Log.i("Details debug", "onViewCreated: ${game.description}")
+    gamesViewModel.errorMessage.observe(this, Observer {
+      Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+    })
   }
 
   override fun onResume() {
