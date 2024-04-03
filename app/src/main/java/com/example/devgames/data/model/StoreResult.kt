@@ -1,6 +1,6 @@
 package com.example.devgames.data.model
 
-data class StoresResult (
+data class StoreResult (
   val id: Int,
   val store: Store
 )
