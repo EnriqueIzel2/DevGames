@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.devgames.data.repository.GameRepository
 import com.example.devgames.databinding.FragmentDetailsBinding
 import com.example.devgames.service.RetrofitInitializer
@@ -20,9 +20,11 @@ class DetailsFragment : Fragment() {
 
   private lateinit var binding: FragmentDetailsBinding
   private val args: DetailsFragmentArgs by navArgs()
-  private val gameMainBanner by lazy { binding.detailsMainBanner }
+  private val gameImageSlider by lazy { binding.detailsImageSliderBanner }
   private val gameTitle by lazy { binding.detailsGameTitle }
+  private val gameWebsite by lazy { binding.detailsGameWebsite }
   private val gameDescription by lazy { binding.detailsGameDescription }
+  private var imageList = mutableListOf<SlideModel>()
 
   private lateinit var gamesViewModel: GamesViewModel
   private val apiInitializer = RetrofitInitializer().createApiService()
@@ -47,7 +49,12 @@ class DetailsFragment : Fragment() {
 
     gamesViewModel.gameDetails.observe(requireActivity(), Observer { gameDetail ->
       gameTitle.text = gameDetail.name
-      Glide.with(binding.root.context).load(gameDetail.backgroundImageAdditional).into(gameMainBanner)
+
+
+
+      imageList.add(SlideModel(gameDetail.backgroundImage))
+      imageList.add(SlideModel(gameDetail.backgroundImageAdditional))
+      gameImageSlider.setImageList(imageList)
     })
 
     gamesViewModel.errorMessage.observe(this, Observer {
