@@ -11,6 +11,7 @@ data class GameDetails(
   val backgroundImage: String,
   @SerializedName("background_image_additional")
   val backgroundImageAdditional: String,
-//  val platforms: List<Platform>,
-//  val stores: List<String>,
+  val platforms: List<PlatformsResult>,
+  val stores: List<StoresResult>,
+  val genres: List<Genre>
 )
