@@ -24,7 +24,7 @@ class DetailsFragment : Fragment() {
   private val gameTitle by lazy { binding.detailsGameTitle }
   private val gameWebsite by lazy { binding.detailsGameWebsite }
   private val gameDescription by lazy { binding.detailsGameDescription }
-  private var imageList = mutableListOf<SlideModel>()
+  private var imageList = mutableListOf(SlideModel(""), SlideModel(""))
 
   private lateinit var gamesViewModel: GamesViewModel
   private val apiInitializer = RetrofitInitializer().createApiService()
@@ -50,10 +50,8 @@ class DetailsFragment : Fragment() {
     gamesViewModel.gameDetails.observe(requireActivity(), Observer { gameDetail ->
       gameTitle.text = gameDetail.name
 
-
-
-      imageList.add(SlideModel(gameDetail.backgroundImage))
-      imageList.add(SlideModel(gameDetail.backgroundImageAdditional))
+      imageList[0] = SlideModel(gameDetail.backgroundImage)
+      imageList[1] = SlideModel(gameDetail.backgroundImageAdditional)
       gameImageSlider.setImageList(imageList)
     })
 
