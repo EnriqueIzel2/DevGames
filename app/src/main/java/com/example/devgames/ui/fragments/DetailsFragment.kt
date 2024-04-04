@@ -49,6 +49,7 @@ class DetailsFragment : Fragment() {
 
     gamesViewModel.gameDetails.observe(requireActivity(), Observer { gameDetail ->
       gameTitle.text = gameDetail.name
+      gameDescription.text = gameDetail.description
 
       imageList[0] = SlideModel(gameDetail.backgroundImage)
       imageList[1] = SlideModel(gameDetail.backgroundImageAdditional)
