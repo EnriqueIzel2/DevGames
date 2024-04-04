@@ -14,15 +14,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/details_ic_arrow_back"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="12dp"
+                android:padding="8sp"
+                android:background="@drawable/appbar_background_item"
+                android:src="@drawable/ic_arrow_back"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/details_ic_bookmark"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="12dp"
+                android:padding="8sp"
+                android:background="@drawable/appbar_background_item"
+                android:src="@drawable/ic_action_bookmark_border"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ImageButton
         android:id="@+id/details_game_website"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_info_details"
         android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/details_game_rating"
+        android:src="@android:drawable/ic_menu_info_details"
+        app:layout_constraintBottom_toBottomOf="@+id/details_imageSlider_banner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/details_game_rating" />
+        app:layout_constraintTop_toBottomOf="@+id/details_imageSlider_banner" />
 
     <LinearLayout
         android:id="@+id/details_game_rating"
@@ -50,13 +90,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details_game_rating" />
+    
+    <TextView
+        android:id="@+id/details_game_genres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/details_game_title"
+        app:layout_constraintTop_toBottomOf="@id/details_game_title"
+        android:text="Genres"/>
 
     <TextView
         android:id="@+id/details_game_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="7"
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_game_title" />
+        app:layout_constraintStart_toStartOf="@id/details_game_title"
+        app:layout_constraintTop_toBottomOf="@+id/details_game_genres" />
+
+    <Button
+        android:id="@+id/details_game_button_read_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/details_game_title"
+        app:layout_constraintEnd_toEndOf="@id/details_game_title"
+        app:layout_constraintTop_toBottomOf="@id/details_game_description"
+        android:text="Read full description"/>
+
+    <TextView
+        android:id="@+id/details_game_platforms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/details_game_title"
+        app:layout_constraintTop_toBottomOf="@id/details_game_button_read_description"
+        android:text="Platforms"/>
+
+    <TextView
+        android:id="@+id/details_game_stores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/details_game_title"
+        app:layout_constraintTop_toBottomOf="@id/details_game_platforms"
+        android:text="Stores"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
