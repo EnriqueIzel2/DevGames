@@ -25,15 +25,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingHorizontal="12dp">
 
             <ImageView
                 android:id="@+id/details_ic_arrow_back"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="12dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/appbar_background_item"
                 android:clickable="true"
+                android:contentDescription="@string/icon_arrow_back"
                 android:padding="8sp"
                 android:src="@drawable/ic_arrow_back"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -42,10 +43,10 @@
 
             <ImageView
                 android:id="@+id/details_ic_bookmark"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_marginEnd="12dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/appbar_background_item"
+                android:contentDescription="@string/icon_bookmark"
                 android:padding="8sp"
                 android:src="@drawable/ic_action_bookmark_border"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -54,120 +55,143 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageButton
-        android:id="@+id/details_game_website"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/details_game_FAB_website"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:src="@android:drawable/ic_menu_info_details"
+        android:backgroundTint="@color/my_red"
+        android:clickable="true"
+        android:contentDescription="@string/FAB_content_description"
+        android:src="@drawable/ic_link_quebrado"
         app:layout_constraintBottom_toBottomOf="@+id/details_imageSlider_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details_imageSlider_banner" />
 
-    <LinearLayout
-        android:id="@+id/details_game_rating_container"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/details_imageSlider_banner">
+        app:layout_constraintTop_toBottomOf="@id/details_game_FAB_website">
 
-        <ImageView
-            android:layout_width="10dp"
-            android:layout_height="10dp" />
+        <LinearLayout
+            android:id="@+id/details_game_rating_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/icons8_estrela_48" />
+
+            <TextView
+                android:id="@+id/details_game_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_marginStart="4dp"
+                android:text="9/10"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/details_game_rating"
+            android:id="@+id/details_game_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="GTA V"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_game_rating_container" />
+
+        <TextView
+            android:id="@+id/details_game_genres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Genres"
+            app:layout_constraintStart_toStartOf="@id/details_game_title"
+            app:layout_constraintTop_toBottomOf="@id/details_game_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/details_game_list_genres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_game_genres"
+            tools:itemCount="3"
+            tools:listitem="@layout/game_tags_item" />
+
+        <TextView
+            android:id="@+id/details_game_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="7"
+            android:text="Description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/details_game_title"
+            app:layout_constraintTop_toBottomOf="@+id/details_game_list_genres" />
+
+        <Button
+            android:id="@+id/details_game_button_read_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9/10" />
-    </LinearLayout>
+            android:text="Read full description"
+            app:layout_constraintEnd_toEndOf="@id/details_game_title"
+            app:layout_constraintStart_toStartOf="@id/details_game_title"
+            app:layout_constraintTop_toBottomOf="@id/details_game_description" />
 
-    <TextView
-        android:id="@+id/details_game_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="GTA V"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_game_rating_container" />
+        <TextView
+            android:id="@+id/details_game_platforms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Platforms"
+            app:layout_constraintStart_toStartOf="@id/details_game_title"
+            app:layout_constraintTop_toBottomOf="@id/details_game_button_read_description" />
 
-    <TextView
-        android:id="@+id/details_game_genres"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Genres"
-        app:layout_constraintStart_toStartOf="@id/details_game_title"
-        app:layout_constraintTop_toBottomOf="@id/details_game_title" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/details_game_list_platforms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_game_platforms"
+            tools:itemCount="3"
+            tools:listitem="@layout/game_tags_item" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/details_game_list_genres"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/details_game_genres"
-        tools:itemCount="3"
-        tools:listitem="@layout/game_tags_item" />
+        <TextView
+            android:id="@+id/details_game_stores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stores"
+            app:layout_constraintStart_toStartOf="@id/details_game_title"
+            app:layout_constraintTop_toBottomOf="@id/details_game_list_platforms" />
 
-    <TextView
-        android:id="@+id/details_game_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="7"
-        android:text="Description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/details_game_title"
-        app:layout_constraintTop_toBottomOf="@+id/details_game_list_genres" />
-
-    <Button
-        android:id="@+id/details_game_button_read_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read full description"
-        app:layout_constraintEnd_toEndOf="@id/details_game_title"
-        app:layout_constraintStart_toStartOf="@id/details_game_title"
-        app:layout_constraintTop_toBottomOf="@id/details_game_description" />
-
-    <TextView
-        android:id="@+id/details_game_platforms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Platforms"
-        app:layout_constraintStart_toStartOf="@id/details_game_title"
-        app:layout_constraintTop_toBottomOf="@id/details_game_button_read_description" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/details_game_list_platforms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/details_game_platforms"
-        tools:itemCount="3"
-        tools:listitem="@layout/game_tags_item" />
-
-    <TextView
-        android:id="@+id/details_game_stores"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Stores"
-        app:layout_constraintStart_toStartOf="@id/details_game_title"
-        app:layout_constraintTop_toBottomOf="@id/details_game_list_platforms" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/details_game_list_stores"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/details_game_stores"
-        tools:itemCount="3"
-        tools:listitem="@layout/game_tags_item" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/details_game_list_stores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_game_stores"
+            tools:itemCount="3"
+            tools:listitem="@layout/game_tags_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
