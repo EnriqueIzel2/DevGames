@@ -8,6 +8,7 @@
     <string name="icon_arrow_back">icon arrow back</string>
     <string name="icon_bookmark">icon_bookmark</string>
     <string name="FAB_content_description">Button to go to game website</string>
+    <string name="details_button_read_full_description">Read full description</string>
 
 
 </resources>
