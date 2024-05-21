@@ -26,7 +26,6 @@ class DetailsFragment : Fragment() {
   private val gameImageSlider by lazy { binding.detailsImageSliderBanner }
   private val gameTitle by lazy { binding.detailsGameTitle }
   private val gameRating by lazy { binding.detailsGameRating }
-  private val gameWebsite by lazy { binding.detailsGameWebsite }
   private val gameDescription by lazy { binding.detailsGameDescription }
   private var imageList = mutableListOf(SlideModel(""), SlideModel(""))
   private val recyclerViewGenres by lazy { binding.detailsGameListGenres }
